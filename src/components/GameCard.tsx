@@ -33,7 +33,7 @@ export default function GameCard({
           onClick={() => onRemove(game.steam_id)}
           id={`remove-game-${game.steam_id}`}
           className="absolute top-2 right-2 z-10 w-7 h-7 rounded-full bg-black/70 
-                     flex items-center justify-center opacity-0 group-hover:opacity-100 
+                     flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 
                      transition-opacity hover:bg-red-500/80 text-white text-sm"
           aria-label="Remove game"
         >
