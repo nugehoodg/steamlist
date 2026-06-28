@@ -1,4 +1,4 @@
-# SteamShelf 🎮
+# SteamList 🎮
 
 A Pastebin-style website for sharing curated Steam game lists. No accounts required.
 
