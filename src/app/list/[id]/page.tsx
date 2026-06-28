@@ -4,23 +4,69 @@ import { SteamList } from "@/types";
 import ListHeader from "@/components/ListHeader";
 import ListActions from "@/components/ListActions";
 import GameList from "@/components/GameList";
+import { supabase } from "@/lib/supabase";
 
 interface PageProps {
   params: Promise<{ id: string }>;
 }
 
 async function getList(id: string): Promise<SteamList | null> {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL ??
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+  if (!id || !/^[A-Za-z0-9]{8}$/.test(id)) {
+    return null;
+  }
 
   try {
-    const res = await fetch(`${baseUrl}/api/lists/${id}`, {
-      next: { revalidate: 60 },
-    });
-    if (!res.ok) return null;
-    return res.json();
-  } catch {
+    // Fetch list directly from Supabase
+    const { data: list, error: listError } = await supabase
+      .from("lists")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (listError || !list) return null;
+
+    // Check expiry
+    if (new Date(list.expires_at) < new Date()) {
+      return null;
+    }
+
+    // Fetch list_items joined with games directly
+    const { data: items, error: itemsError } = await supabase
+      .from("list_items")
+      .select(`
+        id,
+        position,
+        steam_id,
+        games (
+          steam_id,
+          title,
+          image,
+          genres,
+          price_initial,
+          price_final,
+          discount_percent,
+          is_free
+        )
+      `)
+      .eq("list_id", id)
+      .order("position", { ascending: true });
+
+    if (itemsError) {
+      console.error("Items fetch error server-side:", itemsError);
+      return null;
+    }
+
+    return {
+      ...list,
+      items: (items ?? []).map((item: any) => ({
+        id: item.id,
+        position: item.position,
+        steam_id: item.steam_id,
+        game: item.games,
+      })),
+    };
+  } catch (err) {
+    console.error("Error in getList server-side:", err);
     return null;
   }
 }
