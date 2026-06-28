@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+:root {
+  --steam-blue: #1a9fff;
+  --steam-blue-light: #66c0f4;
+  --steam-dark: #1b2838;
+  --steam-darker: #0d1b2a;
+  --steam-green: #a4d007;
+  --steam-dark-green: #4c6b22;
+  --steam-text: #c6d4df;
+  --steam-subtext: #8ba7c7;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-geist), system-ui, -apple-system, sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d1117;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a3a50;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3a5068;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(26, 159, 255, 0.3);
+  color: white;
+}
+
+/* Fade-in animation for cards */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+/* Shimmer for skeleton */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, #1b2838 25%, #2a3f5f 50%, #1b2838 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Glass card effect */
+.glass {
+  background: rgba(27, 40, 56, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Steam-like gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #66c0f4, #a4d007);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
