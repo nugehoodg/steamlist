@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import CreateListForm from "@/components/CreateListForm";
 
 export const metadata: Metadata = {
-  title: "SteamShelf — Share Your Steam Game Lists",
+  title: "SteamList — Share Your Steam Game Lists",
   description:
     "Paste Steam URLs, fetch game info automatically, and share a curated list with anyone — no account needed.",
 };
