@@ -87,7 +87,7 @@ export default function RootLayout({
         <footer className="relative z-10 mt-24 border-t border-white/5 py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p className="text-[#4a6580] text-sm">
-              Made with 💚 by <a href="https://github.com/nugehoodg">Anugerah</a>
+              Made with 💚 by <a className="underline" href="https://github.com/nugehoodg">Anugerah</a>
               <span className="mx-2">·</span>
               SteamList is not affiliated with Valve Corporation or Steam.
               <span className="mx-2">·</span>
